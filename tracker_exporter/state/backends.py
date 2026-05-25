@@ -133,12 +133,7 @@ class LocalFileStorageBackend(AbstractFileStorageBackend):
         :param data: Content that will be written to file.
 
         """
-
-        if self.auto_sub_ext_by_serializer:
-            path = self.path_with_ext(path)
-
-        with open(path, "w") as file:
-            file.write(self.serializer.serialize(data))
+        pass
 
 
 class S3FileStorageBackend(AbstractFileStorageBackend):
@@ -243,10 +238,7 @@ class S3FileStorageBackend(AbstractFileStorageBackend):
         :param data: Content that will be written to file.
 
         """
-        if self.auto_sub_ext_by_serializer:
-            path = self.path_with_ext(path)
-
-        self.client.put_object(Bucket=self.bucket_name, Key=path, Body=self.serializer.serialize(data).encode())
+        pass
 
 
 __all__ = [

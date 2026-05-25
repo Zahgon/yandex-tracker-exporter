@@ -45,9 +45,6 @@ class JsonSerializer(AbstractSerializer):
     :raises SerializerError: If an error occurs during the JSON (de)serialization process.
     """
 
-    @property
-    def ext(self) -> str:
-        return "json"
 
     def serialize(self, data: Any, ensure_ascii: bool = False, indent: int = 2, **kwargs) -> str:
         """
@@ -60,10 +57,7 @@ class JsonSerializer(AbstractSerializer):
 
         :raises SerializerError: If an error occurs during the JSON serialization process.
         """
-        try:
-            return json.dumps(data, ensure_ascii=ensure_ascii, indent=indent, **kwargs)
-        except (json.JSONDecodeError, TypeError) as exc:
-            raise SerializerError(exc) from exc
+        pass
 
     def deserialize(self, data: str, **kwargs) -> Any:
         """

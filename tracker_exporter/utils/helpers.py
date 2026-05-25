@@ -26,15 +26,7 @@ logger = logging.getLogger(__name__)
 
 def get_timedelta(end_time: datetime, start_time: datetime, out: TimeDeltaOut = TimeDeltaOut.SECONDS) -> int:
     """Simple timedelta between dates."""
-    assert isinstance(start_time, datetime)
-    assert isinstance(end_time, datetime)
-
-    delta = int((end_time - start_time).total_seconds())
-    if out == TimeDeltaOut.MINUTES:
-        return delta // 60
-    if out == TimeDeltaOut.SECONDS:
-        return delta
-    return delta
+    pass
 
 
 def calculate_time_spent(
@@ -155,33 +147,6 @@ def backoff(
 ) -> Callable:
     """Decorator for backoff retry function/method calls."""
 
-    def retry_decorator(func: Callable):
-        @wraps(func)
-        def func_retry(*args, **kwargs):
-            logger.debug(f"Start func {func.__qualname__} with {max_tries} tries")
-            tries, delay = max_tries, base_delay
-            counter = 0
-            while tries > 0:
-                try:
-                    counter += 1
-                    return func(*args, **kwargs)
-                except exceptions as err:
-                    tries -= 1
-                    if tries == 0:
-                        logger.error(f"{func.__qualname__} has failed {counter} times")
-                        raise
-                    logger.warning(
-                        f"Error in func {func.__qualname__}, cause: {err}. "
-                        f"Retrying ({counter}/{max_tries - 1}) in {delay:.2f}s..."
-                    )
-                    if jitter:
-                        delay = random.uniform(delay / 2, delay * expo_factor)  # nosec
-                        time.sleep(delay)
-                    else:
-                        time.sleep(delay)
-                    delay *= expo_factor
-
-        return func_retry
 
     return retry_decorator
 

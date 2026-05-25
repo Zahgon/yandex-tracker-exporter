@@ -62,15 +62,11 @@ class Base:
     @classmethod
     def de_json(cls, data) -> dict:
         """Deserialize object."""
-        if not data:
-            return None
-
-        data = data.copy()
-        return data
+        pass
 
     def to_json(self) -> dict:
         """Serialize object to json."""
-        return json.dumps(self.to_dict())
+        pass
 
     def to_dict(self) -> dict:
         """Recursive serialize object."""

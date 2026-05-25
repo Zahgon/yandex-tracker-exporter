@@ -39,13 +39,7 @@ class YandexTrackerClient:
             headers={"Accept-Language": lang},
         )
 
-    @monitoring.send_time_metric("issue_prefetch_seconds")
-    def get_issue(self, issue_key: str) -> Issues:
-        return self.client.issues[issue_key]
 
-    @monitoring.send_time_metric("comments_fetch_seconds")
-    def get_comments(self, issue_key: str) -> IssueComments:
-        return self.client.issues[issue_key].comments.get_all()
 
     @monitoring.send_time_metric("issues_search_time_seconds")
     def search_issues(

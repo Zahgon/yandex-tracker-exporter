@@ -44,14 +44,6 @@ class ClickhouseClient:
         if self.proto == ClickhouseProto.HTTPS:
             assert self.cacert is not None
 
-    def _prepare_headers(self):
-        # fmt: off
-        self.headers = {
-            "Content-Type": "application/json",
-            "X-Clickhouse-User": self.username
-        }  # fmt: on
-        if self.password is not None:
-            self.headers["X-Clickhouse-Key"] = self.password
 
     def _prepare_query_params(self):
         params = self.params.copy()

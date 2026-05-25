@@ -93,9 +93,7 @@ class FileStateManager(AbstractStateManager):
         :param value: Value to be saved assotiated with key.
 
         """
-        self.state = self.storage.read(self.state_file_name, deserialize=True)
-        self.state[key] = value
-        self.storage.write(self.state_file_name, self.state)
+        pass
 
     def delete(self, key: str) -> None:
         """
@@ -104,15 +102,11 @@ class FileStateManager(AbstractStateManager):
 
         :param key: State key to be deleted.
         """
-        self.state = self.storage.read(self.state_file_name, deserialize=True)
-        if self.state.get(key) is not None:
-            del self.state[key]
-            self.storage.write(self.state_file_name, self.state)
+        pass
 
     def flush(self):
         """Drop all data from state."""
-        self.state = {}
-        self.storage.write(self.state_file_name, self.state)
+        pass
 
 
 class RedisStateManager(AbstractStateManager):
@@ -176,11 +170,7 @@ class RedisStateManager(AbstractStateManager):
         :param value: Value to be saved assotiated with key.
 
         """
-        if isinstance(value, dict):
-            value = self.serializer.serialize(value)
-
-        with self.storage.client() as session:
-            session.set(self._rkey(key), value)
+        pass
 
     def get(self, key: str) -> Any:
         """
@@ -203,8 +193,7 @@ class RedisStateManager(AbstractStateManager):
 
         :param key: State key to be deleted.
         """
-        with self.storage.client() as session:
-            session.delete(self._rkey(key))
+        pass
 
     def flush(self) -> None:
         """Flush all data in the namespace."""

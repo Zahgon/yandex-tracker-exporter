@@ -44,17 +44,6 @@ class DogStatsdClient:
     def send_count_metric(self, name: str, value: int, tags: list = []) -> Callable:
         metric = f"{self.prefix}_{name}"
 
-        def metric_wrapper(func):
-            @wraps(func)
-            def wrapper(*args, **kwargs):
-                if not self._enabled:
-                    return func(*args, **kwargs)
-
-                self.client.increment(metric, value, tags=tags)
-                logger.debug(f"Success sent count metric: {metric}")
-                return func(*args, **kwargs)
-
-            return wrapper
 
         return metric_wrapper
 

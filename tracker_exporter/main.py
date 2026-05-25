@@ -58,13 +58,7 @@ scheduler = BackgroundScheduler()
 
 def signal_handler(sig, frame) -> None:  # pylint: disable=W0613
     """Graceful shutdown."""
-    if sig in (
-        signal.SIGINT,
-        signal.SIGTERM,
-    ):
-        logger.warning(f"Received {signal.Signals(sig).name}, graceful shutdown...")
-        scheduler.shutdown()
-        sys.exit(0)
+    pass
 
 
 def configure_sentry() -> None:
